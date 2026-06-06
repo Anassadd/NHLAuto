@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NHL AUTO</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="intro-screen">
+    <div class="intro-content">
+      <div class="intro-logo-icon"><i class="ti ti-car"></i></div>
+      <h1 class="intro-title">NHL AUTO</h1>
+    </div>
+  </div>
+
+  <nav class="ap-nav">
+  <div class="ap-nav-logo">
+    <div class="ap-nav-logo-icon"><i class="ti ti-car"></i></div>
+    <span class="ap-nav-logo-text">NHL AUTO</span>
+  </div>
+    <div class="ap-nav-links">
+      <a href="#hero">Accueil</a>
+      <a href="#services">Services</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#atelier">Atelier</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="ap-nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+      Pour prendre RDV <i class="ti ti-arrow-right"></i>
+    </button>
+  </nav>
+
+  <section id="hero">
+    <div class="ap-hero">
+      <div class="ap-hero-left">
+        <div class="ap-hero-tag"><i class="ti ti-map-pin"></i>Garage Premium Pessac</div>
+        <h1 class="ap-hero-h1">Précision<span>Mécanique</span></h1>
+        <p class="ap-hero-sub">Excellence et sécurité automobile. Diagnostic électronique, entretien et mécanique lourde pour tous véhicules.</p>
+        <div class="ap-hero-actions">
+          <button class="ap-btn-dark" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            Prendre rendez-vous <i class="ti ti-arrow-right"></i>
+          </button>
+          <button class="ap-btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+            Nos services
+          </button>
+        </div>
+      </div>
+      <div class="ap-hero-right">
+        <img src=".\src\image1.jpeg" alt="Véhicule de prestige en atelier" />
+        <div class="ap-hero-avail">
+          <div style="display:flex;align-items:center">
+            <span class="ap-avail-dot"></span>
+            <span class="ap-avail-text">Disponible</span>
+          </div>
+          <span class="ap-avail-sub">Rendez-vous aujourd'hui</span>
+        </div>
+      </div>
+    </div>
+    <div class="ap-social-proof">
+      <div class="ap-avatars">
+        <div class="ap-avatar">A</div>
+        <div class="ap-avatar">B</div>
+        <div class="ap-avatar">C</div>
+        <div class="ap-avatar">D</div>
+      </div>
+      <div class="ap-stars">
+        <i class="ti ti-star"></i><i class="ti ti-star"></i><i class="ti ti-star"></i><i class="ti ti-star"></i><i class="ti ti-star"></i>
+      </div>
+      <span class="ap-proof-text">Plus de <strong>2500 clients satisfaits</strong></span>
+    </div>
+  </section>
+
+  <section class="ap-stats">
+    <div class="ap-stat">
+      <div class="ap-stat-icon"><i class="ti ti-clock"></i></div>
+      <div class="ap-stat-num">15+</div>
+      <div class="ap-stat-label">Années d'expérience</div>
+    </div>
+    <div class="ap-stat">
+      <div class="ap-stat-icon"><i class="ti ti-users"></i></div>
+      <div class="ap-stat-num">2500+</div>
+      <div class="ap-stat-label">Clients satisfaits</div>
+    </div>
+    <div class="ap-stat">
+      <div class="ap-stat-icon"><i class="ti ti-shield-check"></i></div>
+      <div class="ap-stat-num">100%</div>
+      <div class="ap-stat-label">Garantie pièces</div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="services">
+    <div class="center">
+      <div class="ap-section-kicker">Notre expertise</div>
+      <h2 class="ap-section-h2">Services & Prestations</h2>
+      <p class="ap-section-desc">Des interventions de qualité professionnelle pour l'entretien et la réparation de votre véhicule.</p>
+    </div>
+    <div class="ap-tabs">
+      <button class="ap-tab active" data-tab="diag">
+        <i class="ti ti-settings"></i>Diagnostic électronique
+      </button>
+      <button class="ap-tab" data-tab="entretien">
+        <i class="ti ti-tool"></i>Entretien courant
+      </button>
+      <button class="ap-tab" data-tab="lourde">
+        <i class="ti ti-engine"></i>Mécanique lourde
+      </button>
+    </div>
+    
+    <div class="ap-tab-panel active" id="panel-diag">
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Recherche de pannes avancée</h4><p>Diagnostic multi-système avec équipements constructeur dernière génération.</p></div>
+      </div>
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Codage et reprogrammation</h4><p>Mise à jour calculateurs, codage options, activation fonctions cachées.</p></div>
+      </div>
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Lecture et effacement codes</h4><p>OBD-II multi-protocole, analyse et interprétation complète des codes défauts.</p></div>
+      </div>
+    </div>
+    <div class="ap-tab-panel" id="panel-entretien">
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Vidange & filtration</h4><p>Huiles moteur haute performance, filtres air, huile et habitacle.</p></div>
+      </div>
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Freinage & pneumatiques</h4><p>Disques, plaquettes, équilibrage et géométrie sur banc laser de précision.</p></div>
+      </div>
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Révision certifiée constructeur</h4><p>Carnet d'entretien tamponné, garantie constructeur intégralement préservée.</p></div>
+      </div>
+    </div>
+    <div class="ap-tab-panel" id="panel-lourde">
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Courroie de distribution</h4><p>Kit complet pompe à eau, galets — toutes motorisations, toutes marques.</p></div>
+      </div>
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Embrayage</h4><p>Kit complet volant moteur, butée et disque — pièces OEM ou équivalence.</p></div>
+      </div>
+      <div class="ap-service-check">
+        <div class="ap-check-box"><i class="ti ti-check"></i></div>
+        <div><h4>Gestion moteur</h4><p>Culasse, segments, révision complète — compression vérifiée avant intervention.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section ap-section-alt">
+    <div class="ap-feat-grid">
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-shield-check"></i></div>
+        <h4>Garantie 2 ans</h4>
+        <p>Pièces et main d'œuvre garanties. Satisfaction totale ou reprise gratuite.</p>
+      </div>
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-certificate"></i></div>
+        <h4>Expertise certifiée</h4>
+        <p>Techniciens formés constructeur, équipements de dernière génération.</p>
+      </div>
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-bolt"></i></div>
+        <h4>Rapidité express</h4>
+        <p>Diagnostic en 2h, entretien courant le jour même. Véhicule de prêt offert.</p>
+      </div>
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-heart-handshake"></i></div>
+        <h4>Accueil premium</h4>
+        <p>Un interlocuteur dédié, explications détaillées, devis transparents.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="atelier">
+    <div class="ap-gallery">
+      <div class="ap-gal-item">
+        <img src="./src/image3.jpeg" alt="">
+      </div>
+      <div class="ap-gal-item">
+        <img src="./src/image2.jpeg" alt="">
+      </div>
+      <div class="ap-gal-item">
+        <img src="./src/image4.jpeg" alt="">
+      </div>
+      <div class="ap-gal-item">
+        <img src="./src/image5.jpeg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="brands-section">
+    <div class="brands-card">
+      <div class="light light-1"></div>
+      <div class="light light-2"></div>
+      <div class="light light-3"></div>
+      <div class="light light-4"></div>
+      <div class="light light-5"></div>
+      <div class="light light-6"></div>
+      <div class="light light-7"></div>
+      <div class="light light-8"></div>
+
+      <div class="brands-content">
+        <span class="brands-subtitle">NOUS INTERVENONS SUR TOUTES LES MARQUES</span>
+        <h2 class="brands-title">NHL Auto</h2>
+        <div class="brands-list">
+          <span>Audi</span>
+          <span>BMW</span>
+          <span>Mercedes</span>
+          <span>Porsche</span>
+          <span>Mini</span>
+          <span>Volkswagen</span>
+          <span>Cupra</span>
+          <span>Skoda</span>
+          <span>Peugeot</span>
+          <span>Renault</span>
+          <span>Toyota</span>
+          <span>Honda</span>
+          <span>Ford</span>
+          <span>Volvo</span>
+          <span>Hyundai</span>
+          <span>Kia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="tarifs">
+    <div class="center">
+      <div class="ap-section-kicker">Nos offres</div>
+      <h2 class="ap-section-h2">Packs Entretien</h2>
+      <p class="ap-section-desc">Des prestations adaptées à chaque véhicule.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="./src/vidange.jpg" alt="Vidange">
+        <div class="service-body">
+          <div class="service-top">
+            <h3>Vidange & Filtres</h3>
+            <span>À partir de 65€</span>
+          </div>
+          <p>Vidange moteur, remplacement du filtre à huile et contrôle des niveaux.</p>
+          <div class="service-actions">
+            <a href="tel:+33779701978" class="btn-grey">Appeler</a>
+            <a href="#contact" class="btn-blue">Réserver</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="./src/revision.jpg" alt="Révision">
+        <div class="service-body">
+          <div class="service-top">
+            <h3>Révision Complète</h3>
+            <span>À partir de 149€</span>
+          </div>
+          <p>Contrôle complet du véhicule et vérifications constructeur.</p>
+          <div class="service-actions">
+            <a href="tel:+33779701978" class="btn-grey">Appeler</a>
+            <a href="#contact" class="btn-blue">Réserver</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="./src/frein.jpg" alt="Freinage">
+        <div class="service-body">
+          <div class="service-top">
+            <h3>Freinage</h3>
+            <span>À partir de 89€</span>
+          </div>
+          <p>Remplacement des plaquettes, disques et contrôle du système.</p>
+          <div class="service-actions">
+            <a href="tel:+33779701978" class="btn-grey">Appeler</a>
+            <a href="#contact" class="btn-blue">Réserver</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="./src/diagnostic.jpg" alt="Diagnostic">
+        <div class="service-body">
+          <div class="service-top">
+            <h3>Diagnostic</h3>
+            <span>À partir de 39€</span>
+          </div>
+          <p>Analyse électronique et lecture des défauts constructeur.</p>
+          <div class="service-actions">
+            <a href="tel:+33779701978" class="btn-grey">Appeler</a>
+            <a href="#contact" class="btn-blue">Réserver</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <img src="./src/distribution.jpg" alt="Distribution">
+        <div class="service-body">
+          <div class="service-top">
+            <h3>Distribution</h3>
+            <span>Sur devis</span>
+          </div>
+          <p>Remplacement du kit distribution selon les préconisations constructeur.</p>
+          <div class="service-actions">
+            <a href="tel:+33779701978" class="btn-grey">Appeler</a>
+            <a href="#contact" class="btn-blue">Réserver</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="contact">
+    <div class="ap-section-kicker">Nous contacter</div>
+    <h2 class="ap-section-h2">Demandez un devis<br>ou un rendez-vous.</h2>
+
+    <div class="ap-contact-grid">
+      <form action="https://formspree.io/f/xzdwnqky" method="POST" id="contact-form">
+        <div class="ap-form-group">
+          <label for="name">Nom / Entreprise</label>
+          <input type="text" id="name" name="Entreprise" required />
+        </div>
+
+        <div class="ap-form-group">
+          <label for="email">Adresse E-mail</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="ap-form-group">
+          <label for="phone">Numéro de Téléphone</label>
+          <input type="tel" id="phone" name="Téléphone" required />
+        </div>
+
+        <div class="ap-form-group">
+          <label for="immatriculation">Immatriculation</label>
+          <input type="text" id="immatriculation" name="immatriculation" />
+        </div>
+
+        <div class="ap-form-group">
+          <label for="message">Votre Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <button type="submit" class="ap-form-submit">
+          Envoyer la demande <i class="ti ti-arrow-right"></i>
+        </button>
+
+        <a href="tel:0779701978" class="ap-form-call-btn">
+          <i class="ti ti-phone"></i> Appeler directement le garage
+        </a>
+      </form>
+        
+      <div class="ap-map-block">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2831.1646379059243!2d-0.6664801249757021!3d44.797833277654235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54d94eb85cd213%3A0x7fd6969063a965e1!2sNHL%20AUTO!5e0!3m2!1sfr!2sfr!4v1780329217444!5m2!1sfr!2sfr" 
+          width="100%" 
+          height="340" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        
+        <div class="ap-contact-info">
+          <div class="ap-contact-info-row">
+            <div class="ap-contact-info-icon"><i class="ti ti-map-pin"></i></div>
+            <div class="ap-contact-info-text">
+              <strong>Adresse</strong>6 Av. Saint-Aignan, 33600 Pessac
+            </div>
+          </div>
+          
+          <div class="ap-contact-info-row">
+            <div class="ap-contact-info-icon"><i class="ti ti-phone"></i></div>
+            <div class="ap-contact-info-text">
+              <strong>Téléphone</strong>
+              <a href="tel:0779701978" style="color: inherit; text-decoration: none; font-weight: 600;">07 79 70 19 78</a>
+            </div>
+          </div>
+          
+          <div class="ap-contact-info-row">
+            <div class="ap-contact-info-icon"><i class="ti ti-clock"></i></div>
+            <div class="ap-contact-info-text">
+              <strong>Horaires</strong>Lun–Ven 9h–12h30 14h-18h
+            </div>
+          </div>
+          
+          <div class="ap-contact-info-row">
+            <div class="ap-contact-info-icon"><i class="ti ti-mail"></i></div>
+            <div class="ap-contact-info-text">
+              <strong>Email</strong>
+              <a href="mailto:contact@autoprestige.fr" style="color: inherit; text-decoration: none;">contact@autoprestige.fr</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </section>
+
+  <footer class="ap-footer">
+    <div class="ap-footer-logo">
+      <div class="ap-footer-logo-icon"><i class="ti ti-car"></i></div>
+      <span class="ap-footer-logo-text">NHL AUTO</span>
+    </div>
+    <div class="ap-footer-right">
+      <div class="ap-footer-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">CGV</a>
+        <a href="#">Confidentialité</a>
+      </div>
+      <span class="ap-footer-copy">© 2025 NHL AUTO — Tous droits réservés</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
