@@ -1,0 +1,1455 @@
+/* ==========================================================================
+   0. CONFIGURATION GLOBALE & RE-SET
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #0F172A;
+  overflow-x: hidden; /* Évite les légers bugs de scroll horizontaux sur mobile */
+}
+
+/* Bloquer le scroll pendant la cinématique */
+body.intro-active {
+  overflow: hidden;
+}
+
+
+/* ==========================================================================
+   1. CINÉMATIQUE D'INTRO & EFFET DE LUMIÈRE (Optimisé Responsive)
+   ========================================================================== */
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #0F172A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s;
+  padding: 20px; /* Évite que le texte colle aux bords sur les mini-écrans */
+}
+
+#intro-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.intro-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.intro-logo-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInDown 0.8s forwards 0.2s ease;
+}
+
+.intro-logo-icon i {
+  font-size: 30px;
+  color: #fff;
+}
+
+.intro-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 7vw, 56px); /* Taille ultra-adaptative */
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0;
+  width: 100%;
+  word-wrap: break-word; /* Gère proprement les longs noms si besoin */
+  
+  /* Effet de lumière corrigé sans avertissement jaune */
+  background: linear-gradient(to right, #475569 20%, #fff 40%, #fff 60%, #475569 80%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  
+  animation: 
+    fadeInUp 0.8s forwards 0.4s ease, 
+    shineLight 2s linear infinite 1.2s;
+}
+
+/* Animations de l'intro */
+@keyframes fadeInDown {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shineLight {
+  to { background-position: 200% center; }
+}
+
+
+/* ==========================================================================
+   2. BARRE DE NAVIGATION (NAV)
+   ========================================================================== */
+.ap-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #E8EAF0;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.ap-nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ap-nav-logo-icon {
+  width: 42px;
+  height: 42px;
+  background: #0F172A;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ap-nav-logo-icon i {
+  font-size: 20px;
+  color: #fff;
+}
+
+.ap-nav-logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0F172A;
+}
+
+.ap-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.ap-nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.ap-nav-links a:hover {
+  color: #0F172A;
+}
+
+.ap-nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid #0F172A;
+  background: #fff;
+  color: #0F172A;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.ap-nav-cta:hover {
+  background: #0F172A;
+  color: #fff;
+}
+
+
+/* ==========================================================================
+   3. SECTION HERO
+   ========================================================================== */
+.ap-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+  background: #fff;
+}
+
+.ap-hero-left {
+  padding: 70px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ap-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0F172A;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  padding: 7px 14px;
+  border-radius: 4px;
+  margin-bottom: 28px;
+  width: fit-content;
+}
+
+.ap-hero-tag i {
+  font-size: 14px;
+}
+
+.ap-hero-h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.0;
+  color: #0F172A;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.ap-hero-h1 span {
+  display: block;
+  color: #3D4A5C;
+}
+
+.ap-hero-sub {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.65;
+  max-width: 400px;
+  margin-bottom: 36px;
+}
+
+.ap-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.ap-btn-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #0F172A;
+  color: #fff;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .2s;
+  text-decoration: none;
+}
+
+.ap-btn-dark:hover {
+  background: #1E293B;
+}
+
+.ap-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff;
+  color: #0F172A;
+  border: 1.5px solid #CBD5E1;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 13px 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color .2s;
+}
+
+.ap-btn-outline:hover {
+  border-color: #0F172A;
+}
+
+.ap-hero-right {
+  background: #F1F5F9;
+  position: relative;
+  overflow: hidden;
+}
+
+.ap-hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ap-hero-avail {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.ap-avail-dot {
+  width: 9px;
+  height: 9px;
+  background: #22C55E;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.ap-avail-text {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0F172A;
+}
+
+.ap-avail-sub {
+  font-size: 12px;
+  color: #64748B;
+}
+
+
+/* ==========================================================================
+   4. SECTION SOCIAL PROOF (Preuve Sociale Avis)
+   ========================================================================== */
+.ap-social-proof {
+  padding: 24px 40px;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ap-avatars {
+  display: flex;
+}
+
+.ap-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #CBD5E1;
+  border: 2px solid #fff;
+  margin-left: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.ap-avatars .ap-avatar:first-child {
+  margin-left: 0;
+}
+
+.ap-stars {
+  display: flex;
+  gap: 2px;
+  margin-right: 4px;
+}
+
+.ap-stars i {
+  font-size: 14px;
+  color: #F59E0B;
+}
+
+.ap-proof-text {
+  font-size: 13px;
+  color: #475569;
+}
+
+.ap-proof-text strong {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+
+/* ==========================================================================
+   5. SECTION STATISTIQUES
+   ========================================================================== */
+.ap-stats {
+  padding: 60px 40px;
+  background: #F8FAFC;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.ap-stat {
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.ap-stat::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 1px;
+  background: #E2E8F0;
+}
+
+.ap-stat:last-child::after {
+  display: none;
+}
+
+.ap-stat-icon {
+  width: 56px;
+  height: 56px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.ap-stat-icon i {
+  font-size: 22px;
+  color: #0F172A;
+}
+
+.ap-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.ap-stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #94A3B8;
+}
+
+
+/* ==========================================================================
+   6. MIS EN PAGE STRUCTURELLE DES SECTIONS (Générique)
+   ========================================================================== */
+.ap-section {
+  padding: 72px 40px;
+}
+
+.ap-section-alt {
+  background: #F8FAFC;
+}
+
+.ap-section-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #94A3B8;
+  margin-bottom: 14px;
+}
+
+.ap-section-h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+
+.ap-section-desc {
+  font-size: 15px;
+  color: #64748B;
+  max-width: 540px;
+  margin-bottom: 48px;
+  line-height: 1.65;
+}
+
+.center {
+  text-align: center;
+}
+
+.center .ap-section-desc {
+  margin: 0 auto 48px;
+}
+
+
+/* ==========================================================================
+   7. ONGLETS SERVICES (TABS)
+   ========================================================================== */
+.ap-tabs {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.ap-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 12px;
+  background: #fff;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748B;
+  cursor: pointer;
+  border-right: 1px solid #E2E8F0;
+  transition: all .2s;
+}
+
+.ap-tab:last-child {
+  border-right: none;
+}
+
+.ap-tab i {
+  font-size: 16px;
+}
+
+.ap-tab.active {
+  background: #0F172A;
+  color: #fff;
+}
+
+.ap-tab-panel {
+  display: none;
+}
+
+.ap-tab-panel.active {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  animation: fadeup .25s ease;
+}
+
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ap-service-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ap-check-box {
+  width: 28px;
+  height: 28px;
+  background: #0F172A;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ap-check-box i {
+  font-size: 14px;
+  color: #fff;
+}
+
+.ap-service-check h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+.ap-service-check p {
+  font-size: 12px;
+  color: #64748B;
+  line-height: 1.5;
+}
+
+
+/* ==========================================================================
+   8. CARACTÉRISTIQUES (FEATURES)
+   ========================================================================== */
+.ap-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.ap-feat-card {
+  padding: 24px 20px;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.ap-feat-icon {
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.ap-feat-icon i {
+  font-size: 20px;
+  color: #0F172A;
+}
+
+.ap-feat-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+
+.ap-feat-card p {
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.55;
+}
+
+
+/* ==========================================================================
+   9. GALERIE PHOTOS
+   ========================================================================== */
+.ap-gallery {
+  columns: 2;
+  column-gap: 24px;
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.ap-gal-item {
+  break-inside: avoid;
+  margin-bottom: 24px;
+
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.04),
+    0 12px 32px rgba(15, 23, 42, 0.08);
+
+  transition: all 0.35s ease;
+}
+
+.ap-gal-item img {
+  width: 100%;
+  display: block;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .ap-gallery {
+    columns: 1;
+  }
+}
+
+/* ===================================================
+   EFFETS DE SURVOL (Épurés, sans texte)
+   =================================================== */
+
+.ap-gal-item:hover {
+  transform: translateY(-4px); /* Léger soulèvement haut de gamme */
+  box-shadow: 0 20px 25px -5px rgba(0, 82, 255, 0.1); /* Halo bleu très discret */
+  border-color: rgba(0, 82, 255, 0.2); /* Le contour s'illumine subtilement */
+}
+
+.ap-gal-item:hover img {
+  transform: scale(1.03); /* Léger zoom avant ultra-fluide */
+}
+/* ==========================================================================
+   12. SECTION MARQUES
+   ========================================================================== */
+/* SECTION */
+
+.brands-section {
+  padding: 120px 40px;
+  background: #f7f8fb;
+}
+
+/* CARTE */
+
+.brands-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 1800px;
+
+  margin: auto;
+
+  background: rgba(255,255,255,.95);
+
+  border-radius: 70px;
+
+  overflow: hidden;
+
+  min-height: 520px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 20px 60px rgba(15,23,42,.06),
+    0 50px 120px rgba(15,23,42,.05);
+}
+
+/* HALO BLEU */
+
+.brands-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 900px;
+  height: 900px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,120,255,.12),
+      transparent 70%
+    );
+
+  filter: blur(100px);
+}
+
+/* CONTENU */
+
+.brands-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.brands-subtitle {
+  display: block;
+
+  font-size: 12px;
+
+  letter-spacing: 4px;
+
+  color: #7c8798;
+
+  margin-bottom: 30px;
+}
+
+.brands-title {
+  font-size: clamp(42px, 5vw, 72px);
+
+  font-weight: 300;
+
+  color: #111827;
+
+  margin-bottom: 60px;
+}
+
+/* MARQUES */
+
+.brands-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 40px;
+}
+
+.brands-list span {
+  color: #667085;
+
+  font-size: 22px;
+
+  transition: all .4s ease;
+
+  cursor: default;
+}
+
+.brands-list span:hover {
+  color: #0080ff;
+
+  text-shadow:
+    0 0 20px rgba(0,128,255,.5);
+
+  transform: translateY(-3px);
+}
+
+
+/* LUMIERES */
+
+.light {
+  position: absolute;
+
+  top: 120%;
+
+  width: 2px;
+
+  height: 180px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      to top,
+      transparent,
+      rgba(0,140,255,.8),
+      transparent
+    );
+
+  filter: blur(1px);
+
+  opacity: .5;
+}
+
+.light-1 {
+  left: 8%;
+  animation: rise 8s linear infinite;
+}
+
+.light-2 {
+  left: 18%;
+  animation: rise 10s linear infinite;
+}
+
+.light-3 {
+  left: 32%;
+  animation: rise 7s linear infinite;
+}
+
+.light-4 {
+  left: 46%;
+  animation: rise 12s linear infinite;
+}
+
+.light-5 {
+  left: 58%;
+  animation: rise 9s linear infinite;
+}
+
+.light-6 {
+  left: 70%;
+  animation: rise 11s linear infinite;
+}
+
+.light-7 {
+  left: 84%;
+  animation: rise 8s linear infinite;
+}
+
+.light-8 {
+  left: 92%;
+  animation: rise 13s linear infinite;
+}
+
+@keyframes rise {
+
+  from {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: .7;
+  }
+
+  80% {
+    opacity: .7;
+  }
+
+  to {
+    transform: translateY(-900px);
+    opacity: 0;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .brands-card {
+    border-radius: 40px;
+    min-height: 420px;
+    padding: 40px;
+  }
+
+  .brands-list {
+    gap: 20px;
+  }
+
+  .brands-list span {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================================
+   10. GRILLE DES TARIFS (PRICING)
+   ========================================================================== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+
+  border: 1px solid rgba(15,23,42,.08);
+
+  box-shadow:
+    0 10px 30px rgba(15,23,42,.06);
+
+  transition: .35s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 20px 40px rgba(15,23,42,.10);
+}
+
+.service-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.service-body {
+  padding: 24px;
+}
+
+.service-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-top h3 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.service-top span {
+  background: #eef1f5;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.service-body p {
+  margin: 20px 0;
+  color: #5b6472;
+  line-height: 1.6;
+}
+
+.service-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-grey,
+.btn-blue {
+  flex: 1;
+  text-align: center;
+  padding: 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn-grey {
+  background: #dfe3e8;
+  color: #111827;
+}
+
+.btn-blue {
+  background: #0F172A;
+  color: white;
+}
+
+/* ==========================================================================
+   11. FORMULAIRE DE CONTACT & CARTE
+   ========================================================================== */
+.ap-form-call-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 12px; /* Espace avec le bouton du dessus */
+  background: #fff;
+  color: #0F172A;
+  border: 1.5px solid #CBD5E1;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.ap-form-call-btn:hover {
+  border-color: #0F172A;
+  background: #F8FAFC;
+}
+
+
+.ap-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.ap-form-group {
+  margin-bottom: 18px;
+}
+
+.ap-form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748B;
+  margin-bottom: 8px;
+}
+
+.ap-form-group input, .ap-form-group textarea {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #0F172A;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.ap-form-group input:focus, .ap-form-group textarea:focus {
+  border-color: #0F172A;
+}
+
+.ap-form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.ap-form-submit {
+  width: 100%;
+  background: #0F172A;
+  color: #fff;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: background .2s;
+}
+
+.ap-form-submit:hover {
+  background: #1E293B;
+}
+
+.ap-map-block {
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 340px;
+}
+
+.ap-map-block iframe {
+  width: 100%;
+  height: 340px;
+  border: none;
+  display: block;
+}
+
+.ap-contact-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ap-contact-info-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ap-contact-info-icon {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ap-contact-info-icon i {
+  font-size: 16px;
+  color: #0F172A;
+}
+
+.ap-contact-info-text {
+  font-size: 13px;
+  color: #475569;
+}
+
+.ap-contact-info-text strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0F172A;
+  margin-bottom: 2px;
+}
+
+
+/* ==========================================================================
+   12. PIED DE PAGE (FOOTER)
+   ========================================================================== */
+.ap-footer {
+  background: #0F172A;
+  padding: 36px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ap-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-footer-logo-icon {
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ap-footer-logo-icon i {
+  font-size: 16px;
+  color: #fff;
+}
+
+.ap-footer-logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.ap-footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.ap-footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.ap-footer-links a {
+  font-size: 12px;
+  color: #64748B;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.ap-footer-links a:hover {
+  color: #94A3B8;
+}
+
+.ap-footer-copy {
+  font-size: 12px;
+  color: #334155;
+}
+
+
+/* ==========================================================================
+   13. RESPONSIVE DESIGN COMPLET
+   ========================================================================== */
+
+/* --- TABLETTES ET PETITS ÉCRANS ORDI (Max 1024px) --- */
+@media (max-width: 1024px) {
+  .ap-nav {
+    padding: 0 24px;
+  }
+  .ap-nav-links {
+    gap: 20px; /* On resserre les liens */
+  }
+  .ap-hero {
+    min-height: auto;
+  }
+  .ap-hero-left {
+    padding: 50px 24px;
+  }
+  .ap-section {
+    padding: 60px 24px;
+  }
+  .ap-feat-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 par ligne sur tablette */
+  }
+  .ap-pricing-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 plans côte à côte max */
+    justify-content: center;
+  }
+  /* On force le 3e plan tarifaire à prendre toute la largeur si impair */
+  .ap-pricing-grid .ap-price-card:last-child {
+    grid-column: span 2;
+    max-width: 50%;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .ap-tab-panel.active {
+    grid-template-columns: repeat(2, 1fr); /* Onglets de services sur 2 colonnes */
+  }
+}
+
+/* --- PETITES TABLETTES ET GRANDS TÉLÉPHONES (Max 900px) --- */
+@media (max-width: 900px) {
+  .ap-nav-links { 
+    display: none; /* Masquage propre des liens (prévoir menu burger plus tard) */
+  }
+  .ap-hero { 
+    grid-template-columns: 1fr; /* Le Hero passe sur une seule colonne */
+  }
+  .ap-hero-right { 
+    min-height: 340px; 
+  }
+  .ap-stats { 
+    grid-template-columns: 1fr; /* Stats empilées */
+    gap: 0;
+  }
+  .ap-stat::after {
+    display: none; /* Plus de séparateurs verticaux */
+  }
+  .ap-stat {
+    border-bottom: 1px solid #E2E8F0;
+    padding: 24px 20px;
+  }
+  .ap-stat:last-child {
+    border-bottom: none;
+  }
+  .ap-gallery { 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto; 
+  }
+  .ap-gal-item.r2 { 
+    grid-row: span 1; 
+  }
+  .ap-gal-item.c2 { 
+    grid-column: span 2; 
+  }
+  .ap-contact-grid { 
+    grid-template-columns: 1fr; /* Formulaire au-dessus de la carte */
+  }
+}
+
+/* --- SMARTPHONES (Max 600px) --- */
+@media (max-width: 600px) {
+  .ap-nav, 
+  .ap-hero-left, 
+  .ap-section, 
+  .ap-social-proof { 
+    padding-left: 16px; 
+    padding-right: 16px; 
+  }
+  
+  .ap-nav-cta {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+  
+  .ap-hero-left {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .ap-hero-avail {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .ap-social-proof {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ap-tabs {
+    flex-direction: column; /* Boutons d'onglets verticaux sur smartphone */
+    border-radius: 6px;
+  }
+  
+  .ap-tab {
+    border-right: none;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 14px;
+  }
+  
+  .ap-tab:last-child {
+    border-bottom: none;
+  }
+  
+  .ap-tab-panel.active { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .ap-feat-grid { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .ap-gallery { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .ap-gal-item.c2 { 
+    grid-column: span 1; 
+  }
+  
+  .ap-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ap-pricing-grid .ap-price-card:last-child {
+    grid-column: span 1;
+    max-width: 100%;
+  }
+  
+  .ap-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 16px;
+  }
+  
+  .ap-footer-right {
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 12px;
+  }
+  
+  .ap-footer-links {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
