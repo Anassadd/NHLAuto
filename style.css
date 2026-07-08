@@ -1863,6 +1863,15 @@ RESPONSIVE
     grid-template-columns: 1fr 1fr; 
     grid-template-rows: auto; 
   }
+
+  /* --- TES VRAIES CLASSES ICI (2 par ligne) --- */
+  .services-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 20px !important;
+  }
+
+
   .ap-gal-item.r2 { 
     grid-row: span 1; 
   }
