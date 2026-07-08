@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
@@ -25,22 +26,40 @@
   </div>
 
   <!-- Navigation -->
+<!-- Navigation -->
 <nav class="ap-nav">
   <div class="ap-nav-logo">
     <div class="ap-nav-logo-icon"><i class="ti ti-car"></i></div>
     <span class="ap-nav-logo-text">NHL AUTO</span>
   </div>
-    <div class="ap-nav-links">
-      <a href="#hero">Accueil</a>
-      <a href="#services">Services</a>
-      <a href="#tarifs">Tarifs</a>
-      <a href="#atelier">Atelier</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <button class="ap-nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-      Pour prendre RDV <i class="ti ti-arrow-right"></i>
-    </button>
-  </nav>
+  
+  <div class="ap-nav-links">
+    <a href="#hero">Accueil</a>
+    <a href="#services">Services</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#atelier">Atelier</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <button class="ap-burger-btn" id="burger-toggle" aria-label="Ouvrir le menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<div class="ap-mobile-menu" id="mobile-menu">
+  <div class="ap-mobile-menu-header">
+    <span class="ap-mobile-menu-title">Menu Principal</span>
+  </div>
+  <div class="ap-mobile-menu-links">
+    <a href="#hero" class="mobile-link">Accueil</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#tarifs" class="mobile-link">Tarifs</a>
+    <a href="#atelier" class="mobile-link">Atelier</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+</div>
 
   <!-- Hero Section -->
   <section id="hero">
@@ -69,46 +88,32 @@
         </div>
       </div>
     </div>
-    <div class="ap-social-proof">
-      <div class="ap-avatars">
-        <div class="ap-avatar">A</div>
-        <div class="ap-avatar">B</div>
-        <div class="ap-avatar">C</div>
-        <div class="ap-avatar">D</div>
-      </div>
-      <div class="ap-stars">
-        <i class="ti ti-star"></i><i class="ti ti-star"></i><i class="ti ti-star"></i><i class="ti ti-star"></i><i class="ti ti-star"></i>
-      </div>
-      <span class="ap-proof-text">Plus de <strong>2500 clients satisfaits</strong></span>
-    </div>
-  </section>
+    
 
-  <!-- Stats Section -->
-  <section class="ap-stats">
-    <div class="ap-stat">
-      <div class="ap-stat-icon"><i class="ti ti-clock"></i></div>
-      <div class="ap-stat-num">15+</div>
-      <div class="ap-stat-label">Années d'expérience</div>
-    </div>
-    <div class="ap-stat">
-      <div class="ap-stat-icon"><i class="ti ti-users"></i></div>
-      <div class="ap-stat-num">2500+</div>
-      <div class="ap-stat-label">Clients satisfaits</div>
-    </div>
-    <div class="ap-stat">
-      <div class="ap-stat-icon"><i class="ti ti-shield-check"></i></div>
-      <div class="ap-stat-num">100%</div>
-      <div class="ap-stat-label">Garantie pièces</div>
-    </div>
-  </section>
+  
 
   <!-- Services Section -->
   <section class="ap-section" id="services">
     <div class="center">
-      <div class="ap-section-kicker">Notre expertise</div>
-      <h2 class="ap-section-h2">Services &amp; Prestations</h2>
-      <p class="ap-section-desc">Des interventions de qualité professionnelle pour l'entretien et la réparation de votre véhicule.</p>
+
+    
+      <div class="ap-title-showroom-wrapper">
+        
+        <div class="ap-showroom-visual">
+          <img src="src\image5.png" alt="NHL AUTO Showroom" class="ap-showroom-img">
+        </div>
+
+
+       <div class="ap-showroom-text-side">
+          <div class="ap-showroom-kicker">Notre expertise</div>
+          <h2 class="ap-showroom-h2">Services &amp; Prestations</h2>
+          <p class="ap-showroom-desc">Des interventions de qualité professionnelle pour l'entretien et la réparation de votre véhicule.</p>
+        </div>
+
+      </div>
     </div>
+
+
     <div class="ap-tabs">
       <button class="ap-tab active" data-tab="diag">
         <i class="ti ti-settings"></i>Diagnostic électronique
@@ -147,7 +152,7 @@
       </div>
       <div class="ap-service-check">
         <div class="ap-check-box"><i class="ti ti-check"></i></div>
-        <div><h4>Révision certifiée constructeur</h4><p>Carnet d'entretien tamponné, garantie constructeur intégralement préservée.</p></div>
+        <div><h4>Révision & Check-up </h4><p>Examen de votre véhicule pour anticiper les réparations et rouler en toute sérénité.</p></div>
       </div>
     </div>
     <div class="ap-tab-panel" id="panel-lourde">
@@ -165,105 +170,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Features Section -->
-  <section class="ap-section ap-section-alt">
-    <div class="ap-feat-grid">
-      <div class="ap-feat-card">
-        <div class="ap-feat-icon"><i class="ti ti-shield-check"></i></div>
-        <h4>Garantie 2 ans</h4>
-        <p>Pièces et main d'œuvre garanties. Satisfaction totale ou reprise gratuite.</p>
-      </div>
-      <div class="ap-feat-card">
-        <div class="ap-feat-icon"><i class="ti ti-certificate"></i></div>
-        <h4>Expertise certifiée</h4>
-        <p>Techniciens formés constructeur, équipements de dernière génération.</p>
-      </div>
-      <div class="ap-feat-card">
-        <div class="ap-feat-icon"><i class="ti ti-bolt"></i></div>
-        <h4>Rapidité express</h4>
-        <p>Diagnostic en 2h, entretien courant le jour même. Véhicule de prêt offert.</p>
-      </div>
-      <div class="ap-feat-card">
-        <div class="ap-feat-icon"><i class="ti ti-heart-handshake"></i></div>
-        <h4>Accueil premium</h4>
-        <p>Un interlocuteur dédié, explications détaillées, devis transparents.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery Section -->
-  <section class="ap-section" id="atelier">
-    <div class="ap-gallery">
-
-  <div class="ap-gal-item">
-    <img src="./src/image3.jpeg" alt="">
-  </div>
-
-  <div class="ap-gal-item">
-    <img src="./src/image2.jpeg" alt="">
-  </div>
-
-  <div class="ap-gal-item">
-    <img src="./src/image4.jpeg" alt="">
-  </div>
-
-  <div class="ap-gal-item">
-    <img src="./src/image5.jpeg" alt="">
-  </div>
-
-  
-
-  </section>
-
-  <!--multi marque--> 
-  <section class="brands-section">
-
-  <div class="brands-card">
-
-    <div class="light light-1"></div>
-    <div class="light light-2"></div>
-    <div class="light light-3"></div>
-    <div class="light light-4"></div>
-    <div class="light light-5"></div>
-    <div class="light light-6"></div>
-    <div class="light light-7"></div>
-    <div class="light light-8"></div>
-
-    <div class="brands-content">
-
-      <span class="brands-subtitle">
-        NOUS INTERVENONS SUR TOUTES LES MARQUES
-      </span>
-
-      <h2 class="brands-title">
-        NHL Auto
-      </h2>
-
-      <div class="brands-list">
-        <span>Audi</span>
-        <span>BMW</span>
-        <span>Mercedes</span>
-        <span>Porsche</span>
-        <span>Mini</span>
-        <span>Volkswagen</span>
-        <span>Cupra</span>
-        <span>Skoda</span>
-        <span>Peugeot</span>
-        <span>Renault</span>
-        <span>Toyota</span>
-        <span>Honda</span>
-        <span>Ford</span>
-        <span>Volvo</span>
-        <span>Hyundai</span>
-        <span>Kia</span>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
 
   <!-- Pricing Section -->
   <section class="ap-section" id="tarifs">
@@ -286,11 +192,11 @@
 
         <div class="service-top">
           <h3>Vidange & Filtres</h3>
-          <span>À partir de 65€</span>
+          <span>À partir de 89,90€</span>
         </div>
 
         <p>
-          Vidange moteur, remplacement du filtre à huile et contrôle des niveaux.
+          Vidange moteur, remplacement du filtre à huile.
         </p>
 
         <div class="service-actions">
@@ -309,7 +215,7 @@
 
         <div class="service-top">
           <h3>Révision Complète</h3>
-          <span>À partir de 149€</span>
+          <span>À partir de 189,90€</span>
         </div>
 
         <p>
@@ -332,7 +238,7 @@
 
         <div class="service-top">
           <h3>Disques & plaquettes</h3>
-          <span>À partir de 89€</span>
+          <span>À partir de 109,90€</span>
         </div>
 
         <p>
@@ -355,7 +261,7 @@
 
         <div class="service-top">
           <h3>Diagnostic</h3>
-          <span>À partir de 39€</span>
+          <span>À partir de 69,90€</span>
         </div>
 
         <p>
@@ -416,6 +322,438 @@
   </div>
 
 </section>
+
+  <!-- Features Section -->
+  <section class="ap-section ap-section-alt">
+    <div class="ap-feat-grid">
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-shield-check"></i></div>
+        <h4>Travaux Garantis</h4>
+        <p>Pièces de qualité installées avec soin et couverture de garantie selon les conditions de nos fournisseurs.</p>
+      </div>
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-certificate"></i></div>
+        <h4>Expertise certifiée</h4>
+        <p>Techniciens formés constructeur, équipements de dernière génération.</p>
+      </div>
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-bolt"></i></div>
+        <h4>Rapidité express</h4>
+        <p>Diagnostic efficace sur rendez-vous et entretien courant dans la journée. Véhicule de prêt disponible.</p>
+      </div>
+      <div class="ap-feat-card">
+        <div class="ap-feat-icon"><i class="ti ti-heart-handshake"></i></div>
+        <h4>Accueil premium</h4>
+        <p>Un interlocuteur dédié, explications détaillées, devis transparents.</p>
+      </div>
+    </div>
+  </section>
+
+  <!--slider-->
+
+ <section class="ap-section" id="atelier">
+
+    <div class="swiper gallerySwiper">
+
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+                <img src="./src/image3.png" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image2.png" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image4.jpg" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image0.png" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image6.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image7.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image8.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image9.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="./src/image10.PNG" alt="">
+            </div>
+
+        </div>
+
+        <div class="gallery-prev swiper-button-prev"></div>
+        <div class="gallery-next swiper-button-next"></div>
+
+    </div>
+
+</section>
+  
+
+  </section>
+
+  <!--multi marque--> 
+  <section class="brands-section">
+
+  <div class="brands-card">
+
+    <div class="light light-1"></div>
+    <div class="light light-2"></div>
+    <div class="light light-3"></div>
+    <div class="light light-4"></div>
+    <div class="light light-5"></div>
+    <div class="light light-6"></div>
+    <div class="light light-7"></div>
+    <div class="light light-8"></div>
+
+    <div class="brands-content">
+
+      <span class="brands-subtitle">
+        NOUS INTERVENONS SUR TOUTES LES MARQUES
+      </span>
+
+      <h2 class="brands-title">
+        NHL Auto
+      </h2>
+
+      <div class="brands-list">
+        <span>Audi</span>
+        <span>BMW</span>
+        <span>Mercedes</span>
+        <span>Porsche</span>
+        <span>Mini</span>
+        <span>Volkswagen</span>
+        <span>Cupra</span>
+        <span>Skoda</span>
+        <span>Peugeot</span>
+        <span>Renault</span>
+        <span>Toyota</span>
+        <span>Honda</span>
+        <span>Ford</span>
+        <span>Volvo</span>
+        <span>Hyundai</span>
+        <span>Kia</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ==========================================================================
+     AVIS GOOGLE
+     ========================================================================== -->
+
+<section class="ap-section ap-section-alt" id="avis-google">
+
+    <div class="center">
+
+        <div class="ap-section-kicker">
+            Témoignages
+        </div>
+
+        <h2 class="ap-section-h2">
+            L'avis de nos clients sur Google
+        </h2>
+
+        <p class="ap-section-desc">
+            Découvrez les retours d'expérience des conducteurs qui font confiance à NHL AUTO Pessac.
+        </p>
+
+        <!-- Slider -->
+        <div class="swiper googleSwiper">
+
+            <div class="swiper-wrapper">
+
+                <!-- Avis 1 -->
+
+                <div class="swiper-slide">
+
+                    <div class="ap-ti-card">
+
+                        <div class="ap-ti-header">
+
+                            <div class="ap-ti-avatar ap-avatar-a">
+                                A
+                            </div>
+
+                            <div class="ap-ti-user">
+
+                                <span class="ap-ti-name">
+                                    Ayoub Ghanmi
+                                </span>
+
+                                <span class="ap-ti-date">
+                                    Il y a 3 mois
+                                </span>
+
+                                <div class="ap-ti-stars">
+                                    ★★★★★
+                                </div>
+                            </div>
+
+                            <a href="https://maps.app.goo.gl/fdtCFjKHqwADobf58"
+                               target="_blank"
+                               class="ap-ti-icon-google">
+                            </a>
+
+                        </div>
+
+                        <p class="ap-ti-text">
+                            Super expérience dans ce garage ! Équipe très professionnelle, accueillante et à l'écoute. Les réparations ont été faites rapidement et le travail est de grande qualité.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Avis 2 -->
+
+                <div class="swiper-slide">
+
+                    <div class="ap-ti-card">
+
+                        <div class="ap-ti-header">
+
+                            <div class="ap-ti-avatar ap-avatar-m">
+                                M
+                            </div>
+
+                            <div class="ap-ti-user">
+
+                                <span class="ap-ti-name">
+                                    Mikail Colak
+                                </span>
+
+                                <span class="ap-ti-date">
+                                    Il y a 2 semaines
+                                </span>
+
+                                <div class="ap-ti-stars">
+                                  ★★★★★
+                                 </div>
+
+                            </div>
+
+                            <a href="https://maps.app.goo.gl/fdtCFjKHqwADobf58"
+                               target="_blank"
+                               class="ap-ti-icon-google">
+                            </a>
+
+                        </div>
+
+                        <p class="ap-ti-text">
+                            Garage excellent, très professionnel avec des prix très corrects. Très satisfait des travaux effectués sur mes véhicules. Je recommande vivement.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Avis 3 -->
+
+                <div class="swiper-slide">
+
+                    <div class="ap-ti-card">
+
+                        <div class="ap-ti-header">
+
+                            <div class="ap-ti-avatar ap-avatar-s">
+                                S
+                            </div>
+
+                            <div class="ap-ti-user">
+
+                                <span class="ap-ti-name">
+                                    Shalirad Pathammavong
+                                </span>
+
+                                <span class="ap-ti-date">
+                                    Il y a 3 mois
+                                </span>
+                                
+                                <div class="ap-ti-stars">
+                                    ★★★★★
+                               </div>
+                            </div>
+
+                            <a href="https://maps.app.goo.gl/fdtCFjKHqwADobf58"
+                               target="_blank"
+                               class="ap-ti-icon-google">
+                            </a>
+
+                        </div>
+
+
+                        <p class="ap-ti-text">
+                            Je recommande vivement ce garage ! Équipe très professionnelle, accueillante et surtout honnête. Ils ont su diagnostiquer la panne immédiatement.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Avis 4 -->
+
+                <div class="swiper-slide">
+
+                    <div class="ap-ti-card">
+
+                        <div class="ap-ti-header">
+
+                            <div class="ap-ti-avatar ap-avatar-d">
+                                D
+                            </div>
+
+                            <div class="ap-ti-user">
+
+                                <span class="ap-ti-name">
+                                    Damien Descloux
+                                </span>
+
+                                <span class="ap-ti-date">
+                                    Il y a 2 semaines
+                                </span>
+
+                                <div class="ap-ti-stars">
+                                     ★★★★★
+                                </div>
+
+                            </div>
+
+                            <a href="https://maps.app.goo.gl/fdtCFjKHqwADobf58"
+                               target="_blank"
+                               class="ap-ti-icon-google">
+                            </a>
+
+                        </div>
+
+
+                        <p class="ap-ti-text">
+                            Très satisfait suite à mon passage avec ma BMW 550D. J'avais un problème de boîte de vitesses. Tout est réglé.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Avis 5 -->
+
+                <div class="swiper-slide">
+
+                    <div class="ap-ti-card">
+
+                        <div class="ap-ti-header">
+
+                            <div class="ap-ti-avatar ap-avatar-n">
+                                N
+                            </div>
+
+                            <div class="ap-ti-user">
+
+                                <span class="ap-ti-name">
+                                    Nicolas Du Bois
+                                </span>
+
+                                <span class="ap-ti-date">
+                                    Il y a 2 semaines
+                                </span>
+                                
+                                <div class="ap-ti-stars">
+                                    ★★★★★
+                                </div>
+
+                            </div>
+
+                            <a href="https://maps.app.goo.gl/fdtCFjKHqwADobf58"
+                               target="_blank"
+                               class="ap-ti-icon-google">
+                            </a>
+
+                        </div>
+
+                        
+
+                        <p class="ap-ti-text">
+                            Changement de disques de frein réalisé rapidement. Mécanicien très à l'écoute. Je recommande sans hésiter.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Avis 6 -->
+
+                <div class="swiper-slide">
+
+                    <div class="ap-ti-card">
+
+                        <div class="ap-ti-header">
+
+                            <div class="ap-ti-avatar ap-avatar-m">
+                                M
+                            </div>
+
+                            <div class="ap-ti-user">
+
+                                <span class="ap-ti-name">
+                                    Mounib Salmi
+                                </span>
+
+                                <span class="ap-ti-date">
+                                    Il y a 2 semaines
+                                </span>
+
+                                <div class="ap-ti-stars">
+                                    ★★★★★
+                                </div>
+
+                            </div>
+
+                            <a href="https://maps.app.goo.gl/fdtCFjKHqwADobf58"
+                               target="_blank"
+                               class="ap-ti-icon-google">
+                            </a>
+
+                        </div>
+
+                        <p class="ap-ti-text">
+                            Un garage très professionnel avec des prix très corrects. Je recommande les yeux fermés.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Flèches -->
+
+            <div class="swiper-button-prev google-prev"></div>
+
+            <div class="swiper-button-next google-next"></div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
 
   <!-- Contact Section -->
   <section class="ap-section" id="contact">
@@ -500,23 +838,72 @@
 
     </div> </div> </section>
 
+<!-- Stats Section -->
+  <section class="ap-stats">
+    <div class="ap-stat">
+      <div class="ap-stat-icon"><i class="ti ti-clock"></i></div>
+      <div class="ap-stat-num">10+</div>
+      <div class="ap-stat-label">Années d'expérience</div>
+    </div>
+    <div class="ap-stat">
+      <div class="ap-stat-icon"><i class="ti ti-users"></i></div>
+      <div class="ap-stat-num">4.9/5</div>
+      <div class="ap-stat-label">NOTE AVIS GOOGLE</div>
+    </div>
+    <div class="ap-stat">
+      <div class="ap-stat-icon"><i class="ti ti-shield-check"></i></div>
+      <div class="ap-stat-num">100%</div>
+      <div class="ap-stat-label">DÉVOUÉ SÉCURITÉ</div>
+    </div>
+  </section>
+
+  
   <!-- Footer -->
-  <footer class="ap-footer">
-    <div class="ap-footer-logo">
-      <div class="ap-footer-logo-icon"><i class="ti ti-car"></i></div>
-      <span class="ap-footer-logo-text">NHL AUTO</span>
-    </div>
-    <div class="ap-footer-right">
-      <div class="ap-footer-links">
-        <a href="#">Mentions légales</a>
-        <a href="#">CGV</a>
-        <a href="#">Confidentialité</a>
+<footer class="ap-footer">
+  <div class="ap-footer-grid">
+    
+    <!-- Zone 1 : Brand & Desc -->
+    <div class="ap-footer-block">
+      <div class="ap-nav-logo">
+        <div class="ap-nav-logo-icon"><i class="ti ti-car"></i></div>
+        <span class="ap-nav-logo-text" style="color: #fff;">NHL AUTO</span>
       </div>
-      <span class="ap-footer-copy">© 2025 NHL AUTO — Tous droits réservés</span>
+      <div class="ap-footer-badge">Garage Premium</div>
+      <p class="ap-footer-text">
+        Votre garage de confiance à Pessac. Précision mécanique et services premium pour votre véhicule.
+      </p>
     </div>
-  </footer>
+
+    <!-- Zone 2 : Navigation -->
+    <div class="ap-footer-block">
+      <span class="ap-footer-kicker">Navigation</span>
+      <ul class="ap-footer-links-list">
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#atelier">L'Atelier</a></li>
+      </ul>
+    </div>
+
+    <!-- Zone 3 : Demande de RDV -->
+    <div class="ap-footer-block">
+      <span class="ap-footer-kicker">Demande de RDV</span>
+      <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="ap-footer-btn-cta">
+        Formulaire de contact <i class="ti ti-arrow-right"></i>
+      </button>
+      <p class="ap-footer-subtext">Une question ?<br>Remplissez notre formulaire dédié.</p>
+    </div>
+
+  </div> <!-- <--- LA DIV DE LA GRILLE SE FERME ICI MAINTENANT -->
+
+  <!-- Barre du bas (Copyright) - TOTALEMENT LIBRE ET SUR TOUTE LA LARGEUR -->
+  <div class="ap-footer-bottom-bar">
+    <p>© 2026 NHL AUTO. Tous droits réservés. · <a href="mentions.html">Mentions légales</a> · <a href="cgv.html">CGV</a></p>
+  </div>
+</footer>
 
   <!-- Script JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   0. CONFIGURATION GLOBALE & RE-SET
+   0. CONFIGURATION GLOBALE & RESET
    ========================================================================== */
 * {
   box-sizing: border-box;
@@ -9,13 +9,16 @@
 
 html {
   scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   font-family: 'Inter', sans-serif;
   background: #fff;
   color: #0F172A;
-  overflow-x: hidden; /* Évite les légers bugs de scroll horizontaux sur mobile */
+  max-width: 100%;
+  overflow-x: hidden; 
 }
 
 /* Bloquer le scroll pendant la cinématique */
@@ -25,7 +28,7 @@ body.intro-active {
 
 
 /* ==========================================================================
-   1. CINÉMATIQUE D'INTRO & EFFET DE LUMIÈRE (Optimisé Responsive)
+   1. CINÉMATIQUE D'INTRO & EFFET DE LUMIÈRE
    ========================================================================== */
 #intro-screen {
   position: fixed;
@@ -39,7 +42,7 @@ body.intro-active {
   justify-content: center;
   z-index: 9999;
   transition: opacity 0.6s ease, visibility 0.6s;
-  padding: 20px; /* Évite que le texte colle aux bords sur les mini-écrans */
+  padding: 20px;
 }
 
 #intro-screen.fade-out {
@@ -78,39 +81,27 @@ body.intro-active {
 
 .intro-title {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 7vw, 56px); /* Taille ultra-adaptative */
+  font-size: clamp(28px, 7vw, 56px);
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin: 0;
   opacity: 0;
   width: 100%;
-  word-wrap: break-word; /* Gère proprement les longs noms si besoin */
-  
-  /* Effet de lumière corrigé sans avertissement jaune */
+  word-wrap: break-word;
   background: linear-gradient(to right, #475569 20%, #fff 40%, #fff 60%, #475569 80%);
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  
   animation: 
     fadeInUp 0.8s forwards 0.4s ease, 
     shineLight 2s linear infinite 1.2s;
 }
 
-/* Animations de l'intro */
-@keyframes fadeInDown {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shineLight {
-  to { background-position: 200% center; }
-}
+@keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes shineLight { to { background-position: 200% center; } }
 
 
 /* ==========================================================================
@@ -177,44 +168,138 @@ body.intro-active {
   color: #0F172A;
 }
 
-.ap-nav-cta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1.5px solid #0F172A;
-  background: #fff;
-  color: #0F172A;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background .2s, color .2s;
-}
-
 .ap-nav-cta:hover {
   background: #0F172A;
   color: #fff;
 }
 
+/* --- BOUTON BURGER  --- */
+.ap-burger-btn {
+  display: none; /* Masqué sur PC */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  padding: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.ap-burger-btn span {
+  width: 100%;
+  height: 2px;
+  background-color: #0F172A;
+  border-radius: 2px;
+  transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6), 
+              opacity 0.3s ease;
+}
+
+/* --- CINÉMATIQUE ACTIVED --- */
+
+/* Le bouton entier pivote à 180 degrés */
+.ap-burger-btn.active {
+  transform: rotate(180deg);
+}
+
+/* La barre du haut descend et pivote */
+.ap-burger-btn.active span:nth-child(1) { 
+  transform: translateY(7px) rotate(45deg); 
+}
+
+/* La barre du milieu s'effondre proprement avec un effet de scale */
+.ap-burger-btn.active span:nth-child(2) { 
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* La barre du bas remonte et pivote à l'opposé */
+.ap-burger-btn.active span:nth-child(3) { 
+  transform: translateY(-7px) rotate(-45deg); 
+}
+
+/* --- VOLET MENU MOBILE  --- */
+.ap-mobile-menu {
+  position: fixed;
+  top: 70px;
+  left: -100%; /* Masqué à gauche */
+  width: 280px;
+  height: calc(100vh - 70px);
+  background: #ffffff;
+  box-shadow: 10px 0 30px rgba(15, 23, 42, 0.04);
+  border-right: 1px solid #E8EAF0;
+  z-index: 99;
+  transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.ap-mobile-menu.open {
+  left: 0; /* Glisse proprement */
+}
+
+.ap-mobile-menu-header {
+  padding: 24px 24px 12px 24px;
+}
+
+.ap-mobile-menu-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #94A3B8;
+}
+
+.ap-mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  gap: 6px;
+}
+
+.ap-mobile-menu-links a {
+  font-size: 15px;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.ap-mobile-menu-links a:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
 
 /* ==========================================================================
-   3. SECTION HERO
+   3. SECTION HERO (PC / GRANDS ÉCRANS)
    ========================================================================== */
 .ap-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 520px;
-  background: #fff;
+  min-height: 40vw; 
+  background: #b1bac43b;
+  overflow: hidden;
 }
 
 .ap-hero-left {
-  padding: 70px 40px 60px;
+  padding: 5vw 40px; 
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.ap-hero img, 
+.ap-hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  object-position: center center; 
 }
 
 .ap-hero-tag {
@@ -362,59 +447,66 @@ body.intro-active {
 }
 
 
-/* ==========================================================================
-   4. SECTION SOCIAL PROOF (Preuve Sociale Avis)
-   ========================================================================== */
-.ap-social-proof {
-  padding: 24px 40px;
-  border-bottom: 1px solid #E2E8F0;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+/* ==========================================================
+   4. STRUCTURE ALIGNEMENT TITRE + VISUEL MINI
+   ========================================================== */
+.ap-title-showroom-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 50px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.ap-avatars {
-  display: flex;
+.ap-showroom-visual {
+    flex: 0.9;
+    max-width: 460px;
 }
 
-.ap-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #CBD5E1;
-  border: 2px solid #fff;
-  margin-left: -8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: #475569;
+.ap-showroom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
 }
 
-.ap-avatars .ap-avatar:first-child {
-  margin-left: 0;
+.ap-showroom-text-side {
+    flex: 1.1;
+    text-align: left;
 }
 
-.ap-stars {
-  display: flex;
-  gap: 2px;
-  margin-right: 4px;
+.ap-showroom-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #94A3B8;
+    margin-bottom: 14px;
+    text-align: left;
 }
 
-.ap-stars i {
-  font-size: 14px;
-  color: #F59E0B;
+.ap-showroom-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 14px;
+    line-height: 1.1;
+    text-align: left;
 }
 
-.ap-proof-text {
-  font-size: 13px;
-  color: #475569;
-}
-
-.ap-proof-text strong {
-  color: #0F172A;
-  font-weight: 600;
+.ap-showroom-desc {
+    font-size: 15px;
+    color: #64748B;
+    max-width: 540px;
+    line-height: 1.65;
+    margin-bottom: 0;
+    text-align: left;
 }
 
 
@@ -486,7 +578,7 @@ body.intro-active {
 
 
 /* ==========================================================================
-   6. MIS EN PAGE STRUCTURELLE DES SECTIONS (Générique)
+   6. MISE EN PAGE STRUCTURELLE DES SECTIONS (Générique)
    ========================================================================== */
 .ap-section {
   padding: 72px 40px;
@@ -678,327 +770,214 @@ body.intro-active {
 }
 
 
+/* ==========================================================
+   SWIPER GALLERY
+   ========================================================== */
+
+.gallerySwiper{
+
+    width:100%;
+
+    padding:20px 0 70px;
+
+}
+
+.gallerySwiper .swiper-slide{
+
+    width:420px;
+
+    height:620px;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+}
+
+.gallerySwiper .swiper-slide img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+.gallerySwiper .swiper-button-next,
+.gallerySwiper .swiper-button-prev{
+
+    width:54px;
+
+    height:54px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    color:#111827;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.gallerySwiper .swiper-button-next::after,
+.gallerySwiper .swiper-button-prev::after{
+
+    font-size:20px;
+    font-weight:bold;
+
+}
+
+.swiper-button-next,
+.swiper-button-prev{
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+}
+
+.gallerySwiper:hover .swiper-button-next::after,
+.gallerySwiper:hover .swiper-button-prev::after{
+    opacity:1;
+    visibility:visible;
+}
+
+@media(max-width:768px){
+
+.gallerySwiper .swiper-slide{
+
+width:90%;
+
+height:420px;
+
+}
+
+}
+
 /* ==========================================================================
-   9. GALERIE PHOTOS
+   10. SECTION MARQUES
    ========================================================================== */
-.ap-gallery {
-  columns: 2;
-  column-gap: 24px;
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 0 20px;
-}
-
-.ap-gal-item {
-  break-inside: avoid;
-  margin-bottom: 24px;
-
-  border-radius: 18px;
-  overflow: hidden;
-  background: #fff;
-
-  box-shadow:
-    0 4px 12px rgba(15, 23, 42, 0.04),
-    0 12px 32px rgba(15, 23, 42, 0.08);
-
-  transition: all 0.35s ease;
-}
-
-.ap-gal-item img {
-  width: 100%;
-  display: block;
-}
-
-
-
-
-@media (max-width: 768px) {
-  .ap-gallery {
-    columns: 1;
-  }
-}
-
-/* ===================================================
-   EFFETS DE SURVOL (Épurés, sans texte)
-   =================================================== */
-
-.ap-gal-item:hover {
-  transform: translateY(-4px); /* Léger soulèvement haut de gamme */
-  box-shadow: 0 20px 25px -5px rgba(0, 82, 255, 0.1); /* Halo bleu très discret */
-  border-color: rgba(0, 82, 255, 0.2); /* Le contour s'illumine subtilement */
-}
-
-.ap-gal-item:hover img {
-  transform: scale(1.03); /* Léger zoom avant ultra-fluide */
-}
-/* ==========================================================================
-   12. SECTION MARQUES
-   ========================================================================== */
-/* SECTION */
-
 .brands-section {
-  padding: 120px 40px;
+  padding: 120px 20px;
   background: #f7f8fb;
 }
 
-/* CARTE */
-
 .brands-card {
   position: relative;
-
-  width: 100%;
-  max-width: 1800px;
-
-  margin: auto;
-
-  background: rgba(255,255,255,.95);
-
-  border-radius: 70px;
-
-  overflow: hidden;
-
-  min-height: 520px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow:
-    0 20px 60px rgba(15,23,42,.06),
-    0 50px 120px rgba(15,23,42,.05);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  min-height: auto;
+  box-shadow: none;
+  overflow: visible;
 }
-
-/* HALO BLEU */
 
 .brands-card::before {
   content: "";
-
   position: absolute;
-
-  width: 900px;
-  height: 900px;
-
   left: 50%;
   top: 50%;
-
   transform: translate(-50%, -50%);
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(0,120,255,.12),
-      transparent 70%
-    );
-
-  filter: blur(100px);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0, 128, 255, 0.08), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
-
-/* CONTENU */
 
 .brands-content {
   position: relative;
-  z-index: 5;
+  z-index: 2;
   text-align: center;
 }
 
 .brands-subtitle {
   display: block;
-
   font-size: 12px;
-
   letter-spacing: 4px;
-
+  text-transform: uppercase;
   color: #7c8798;
-
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .brands-title {
-  font-size: clamp(42px, 5vw, 72px);
-
-  font-weight: 300;
-
-  color: #111827;
-
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
-
-/* MARQUES */
 
 .brands-list {
   display: flex;
   flex-wrap: wrap;
-
   justify-content: center;
-
-  gap: 40px;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .brands-list span {
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(15,23,42,.05);
   color: #667085;
-
-  font-size: 22px;
-
-  transition: all .4s ease;
-
-  cursor: default;
+  font-size: 18px;
+  font-weight: 500;
+  transition: all .3s ease;
+  box-shadow: 0 4px 12px rgba(15,23,42,.04);
 }
 
 .brands-list span:hover {
   color: #0080ff;
-
-  text-shadow:
-    0 0 20px rgba(0,128,255,.5);
-
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  border-color: rgba(0,128,255,.15);
+  box-shadow: 0 12px 24px rgba(0,128,255,.10);
 }
-
-
-/* LUMIERES */
 
 .light {
-  position: absolute;
-
-  top: 120%;
-
-  width: 2px;
-
-  height: 180px;
-
-  border-radius: 999px;
-
-  background:
-    linear-gradient(
-      to top,
-      transparent,
-      rgba(0,140,255,.8),
-      transparent
-    );
-
-  filter: blur(1px);
-
-  opacity: .5;
+  display: none;
 }
 
-.light-1 {
-  left: 8%;
-  animation: rise 8s linear infinite;
-}
-
-.light-2 {
-  left: 18%;
-  animation: rise 10s linear infinite;
-}
-
-.light-3 {
-  left: 32%;
-  animation: rise 7s linear infinite;
-}
-
-.light-4 {
-  left: 46%;
-  animation: rise 12s linear infinite;
-}
-
-.light-5 {
-  left: 58%;
-  animation: rise 9s linear infinite;
-}
-
-.light-6 {
-  left: 70%;
-  animation: rise 11s linear infinite;
-}
-
-.light-7 {
-  left: 84%;
-  animation: rise 8s linear infinite;
-}
-
-.light-8 {
-  left: 92%;
-  animation: rise 13s linear infinite;
-}
-
-@keyframes rise {
-
-  from {
-    transform: translateY(0);
-    opacity: 0;
-  }
-
-  20% {
-    opacity: .7;
-  }
-
-  80% {
-    opacity: .7;
-  }
-
-  to {
-    transform: translateY(-900px);
-    opacity: 0;
-  }
-}
-
-/* MOBILE */
-
-@media (max-width: 768px) {
-
-  .brands-card {
-    border-radius: 40px;
-    min-height: 420px;
-    padding: 40px;
-  }
-
-  .brands-list {
-    gap: 20px;
-  }
-
-  .brands-list span {
-    font-size: 16px;
-  }
-}
 
 /* ==========================================================================
-   10. GRILLE DES TARIFS (PRICING)
+   11. GRILLE DES TARIFS (PRICING PC)
    ========================================================================== */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  grid-template-columns: repeat(3, 1fr); 
   gap: 30px;
   margin-top: 60px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .service-card {
   background: #fff;
   border-radius: 28px;
   overflow: hidden;
-
   border: 1px solid rgba(15,23,42,.08);
-
-  box-shadow:
-    0 10px 30px rgba(15,23,42,.06);
-
+  box-shadow: 0 10px 30px rgba(15,23,42,.06);
   transition: .35s ease;
 }
 
 .service-card:hover {
   transform: translateY(-8px);
-
-  box-shadow:
-    0 20px 40px rgba(15,23,42,.10);
+  box-shadow: 0 20px 40px rgba(15,23,42,.10);
 }
 
 .service-card img {
   width: 100%;
   height: 240px;
   object-fit: cover;
+  object-position: center 70%;
 }
 
-.service-body {
-  padding: 24px;
-}
+.service-body { padding: 24px; }
 
 .service-top {
   display: flex;
@@ -1027,13 +1006,9 @@ body.intro-active {
   line-height: 1.6;
 }
 
-.service-actions {
-  display: flex;
-  gap: 12px;
-}
+.service-actions { display: flex; gap: 12px; }
 
-.btn-grey,
-.btn-blue {
+.btn-grey, .btn-blue {
   flex: 1;
   text-align: center;
   padding: 14px;
@@ -1042,18 +1017,303 @@ body.intro-active {
   font-weight: 600;
 }
 
-.btn-grey {
-  background: #dfe3e8;
-  color: #111827;
+.btn-grey { background: #dfe3e8; color: #111827; }
+.btn-blue { background: #0F172A; color: white; }
+
+
+/* ==========================================================================
+   AVIS GOOGLE - SWIPER PREMIUM
+   ========================================================================== */
+
+.googleSwiper{
+    width:100%;
+    padding:20px 5px 70px;
+    position:relative;
 }
 
-.btn-blue {
-  background: #0F172A;
-  color: white;
+.googleSwiper .swiper-wrapper{
+    align-items:stretch;
+}
+
+.googleSwiper .swiper-slide{
+    height:auto;
+    display:flex;
+}
+
+.ap-ti-card{
+
+    width:100%;
+    height:100%;
+
+    background:#fff;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:18px;
+
+    padding:26px;
+
+    box-shadow:
+        0 12px 40px rgba(15,23,42,.05);
+
+    transition:
+        transform .35s,
+        box-shadow .35s;
+}
+
+.ap-ti-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 22px 60px rgba(15,23,42,.10);
+
+}
+
+.ap-ti-header{
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+
+    margin-bottom:18px;
+
+}
+
+.ap-ti-avatar{
+
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#fff;
+
+    font-weight:700;
+
+    font-size:17px;
+
+    margin-right:14px;
+
+    flex-shrink:0;
+
+}
+
+.ap-avatar-a{background:#10b981;}
+.ap-avatar-m{background:#0284c7;}
+.ap-avatar-s{background:#b45309;}
+.ap-avatar-d{background:#ec4899;}
+.ap-avatar-n{background:#f97316;}
+
+.ap-ti-user{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.ap-ti-name{
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.ap-ti-date{
+
+    font-size:13px;
+
+    color:#94A3B8;
+
+    margin-top:2px;
+
+}
+
+.ap-ti-stars{
+
+    margin-top:8px;
+
+    color:#FBBF24;
+
+    font-size:16px;
+
+    letter-spacing:2px;
+
+    line-height:1;
+
+}
+.ap-ti-text{
+
+    color:#475569;
+
+    font-size:14px;
+
+    line-height:1.8;
+
+}
+
+.ap-ti-icon-google{
+
+    position:absolute;
+
+    right:0;
+
+    top:4px;
+
+    width:22px;
+
+    height:22px;
+
+    background:url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") center/contain no-repeat;
+
+    transition:.3s;
+
+}
+
+.ap-ti-icon-google:hover{
+
+    transform:scale(1.15);
+
+}
+
+/*==================================================
+FLÈCHES
+==================================================*/
+
+.google-prev,
+.google-next{
+
+    width:46px!important;
+
+    height:46px!important;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    border:1px solid #E5E7EB;
+
+    box-shadow:
+        0 10px 30px rgba(15,23,42,.08);
+
+    color:#111827!important;
+
+    transition:.25s;
+
+}
+
+.google-prev:hover,
+.google-next:hover{
+
+    transform:scale(1.06);
+
+    background:#F8FAFC;
+
+}
+
+.google-prev::after,
+.google-next::after{
+
+    font-size:18px!important;
+
+    font-weight:700;
+
+}
+
+/* ==========================================================
+   FLÈCHES : CACHÉES PAR DÉFAUT
+   ========================================================== */
+
+.google-prev,
+.google-next{
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+}
+
+.googleSwiper:hover .google-prev,
+.googleSwiper:hover .google-next{
+    opacity:1;
+    visibility:visible;
+}
+
+
+
+/*==================================================
+RESPONSIVE
+==================================================*/
+
+@media(max-width:991px){
+
+    .google-prev,
+    .google-next{
+
+        width:42px!important;
+
+        height:42px!important;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .googleSwiper{
+
+        padding-bottom:55px;
+
+    }
+
+    .google-prev,
+    .google-next{
+
+        display:none!important;
+
+    }
+
+    .ap-ti-card{
+
+        border-radius:16px;
+
+        padding:22px;
+
+    }
+
+    .ap-ti-text{
+
+        font-size:13px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .googleSwiper{
+
+        padding-left:8px;
+        padding-right:8px;
+
+    }
+
+    .ap-ti-card{
+
+        padding:20px;
+
+    }
+
 }
 
 /* ==========================================================================
-   11. FORMULAIRE DE CONTACT & CARTE
+   12. FORMULAIRE DE CONTACT & CARTE
    ========================================================================== */
 .ap-form-call-btn {
   display: flex;
@@ -1061,7 +1321,7 @@ body.intro-active {
   justify-content: center;
   gap: 9px;
   width: 100%;
-  margin-top: 12px; /* Espace avec le bouton du dessus */
+  margin-top: 12px;
   background: #fff;
   color: #0F172A;
   border: 1.5px solid #CBD5E1;
@@ -1081,7 +1341,6 @@ body.intro-active {
   border-color: #0F172A;
   background: #F8FAFC;
 }
-
 
 .ap-contact-grid {
   display: grid;
@@ -1209,79 +1468,294 @@ body.intro-active {
 
 
 /* ==========================================================================
-   12. PIED DE PAGE (FOOTER)
+   13. FOOTER
    ========================================================================== */
-.ap-footer {
-  background: #0F172A;
-  padding: 36px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
+
+.ap-footer{
+    background:#0F172A;
+    color:#94A3B8;
+    padding:70px 30px 30px;
+    border-top:1px solid #1E293B;
 }
 
-.ap-footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* ==========================================================
+   GRILLE
+========================================================== */
+
+.ap-footer-grid{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,minmax(0,1fr));
+
+    column-gap:80px;
+
+    row-gap:50px;
+
+    align-items:start;
+
+    padding-bottom:50px;
+
 }
 
-.ap-footer-logo-icon {
-  width: 34px;
-  height: 34px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.ap-footer-block{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    justify-content:flex-start;
+
 }
 
-.ap-footer-logo-icon i {
-  font-size: 16px;
-  color: #fff;
+/* ==========================================================
+   TITRES
+========================================================== */
+
+.ap-footer-kicker{
+
+    font-size:11px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.12em;
+
+    color:#64748B;
+
+    margin-bottom:18px;
+
 }
 
-.ap-footer-logo-text {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
+/* ==========================================================
+   LOGO
+========================================================== */
+
+.ap-footer-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:5px 14px;
+
+    border-radius:999px;
+
+    margin-top:14px;
+
+    background:#1E293B;
+
+    color:#CBD5E1;
+
+    font-size:11px;
+
+    font-weight:600;
+
 }
 
-.ap-footer-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
+/* ==========================================================
+   TEXTE
+========================================================== */
+
+.ap-footer-text{
+
+    margin-top:16px;
+
+    color:#64748B;
+
+    line-height:1.7;
+
+    font-size:14px;
+
+    max-width:280px;
+
 }
 
-.ap-footer-links {
-  display: flex;
-  gap: 20px;
+.ap-footer-subtext{
+
+    margin-top:12px;
+
+    font-size:13px;
+
+    color:#64748B;
+
+    line-height:1.6;
+
 }
 
-.ap-footer-links a {
-  font-size: 12px;
-  color: #64748B;
-  text-decoration: none;
-  transition: color .2s;
+/* ==========================================================
+   LIENS
+========================================================== */
+
+.ap-footer-links-list{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
 }
 
-.ap-footer-links a:hover {
-  color: #94A3B8;
+.ap-footer-links-list li{
+
+    margin-bottom:14px;
+
 }
 
-.ap-footer-copy {
-  font-size: 12px;
-  color: #334155;
+.ap-footer-links-list a{
+
+    text-decoration:none;
+
+    color:#94A3B8;
+
+    transition:.25s;
+
+    font-size:14px;
+
+}
+
+.ap-footer-links-list a:hover{
+
+    color:#ffffff;
+
+    padding-left:4px;
+
+}
+
+.ap-footer-block:nth-child(2){
+    align-items:center;
+    text-align:center;
+    transform: translateX(-12px);
+}
+
+/* ==========================================================
+   BOUTON
+========================================================== */
+
+.ap-footer-btn-cta{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 22px;
+
+    border-radius:999px;
+
+    border:1px solid #334155;
+
+    background:transparent;
+
+    color:#ffffff;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.ap-footer-btn-cta:hover{
+
+    background:#1E293B;
+
+    border-color:#475569;
+
+}
+
+/* ==========================================================
+   COPYRIGHT
+========================================================== */
+
+.ap-footer-bottom-bar{
+
+    max-width:1200px;
+
+    margin:40px auto 0;
+
+    padding-top:30px;
+
+    border-top:1px solid #1E293B;
+
+}
+
+.ap-footer-bottom-bar p{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin:0;
+
+    font-size:13px;
+
+    color:#64748B;
+
+    line-height:1.8;
+
+}
+
+.ap-footer-bottom-bar a{
+
+    color:#64748B;
+
+    text-decoration:none;
+
+    transition:.25s;
+
+}
+
+.ap-footer-bottom-bar a:hover{
+
+    color:#ffffff;
+
+}
+
+
+
+/* ==========================================================================
+   MEDIA QUERIES POUR LE RENDU 2 COLONNES SUR MOBILE
+   ========================================================================== */
+
+  /* RESPONSIVE MOBILE SÉCURISÉ */
+@media (max-width: 768px) {
+  .ap-footer-grid {
+    grid-template-columns: 1fr; /* On empile sur mobile pour laisser le copyright respirer tout en bas */
+    gap: 35px 0px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .ap-footer {
+    padding: 40px 16px 20px 16px;
+  }
 }
 
 
 /* ==========================================================================
-   13. RESPONSIVE DESIGN COMPLET
+   14. RESPONSIVE DESIGN ARCHITECTURÉ
    ========================================================================== */
 
 /* --- TABLETTES ET PETITS ÉCRANS ORDI (Max 1024px) --- */
@@ -1290,25 +1764,31 @@ body.intro-active {
     padding: 0 24px;
   }
   .ap-nav-links {
-    gap: 20px; /* On resserre les liens */
+    gap: 20px;
   }
   .ap-hero {
+    grid-template-columns: 1fr; 
     min-height: auto;
   }
   .ap-hero-left {
-    padding: 50px 24px;
+    padding: 60px 24px;
+    text-align: center; 
+    align-items: center;
+  }
+  .ap-hero-left h1 {
+    font-size: 36px; 
+    line-height: 1.2;
   }
   .ap-section {
     padding: 60px 24px;
   }
   .ap-feat-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 par ligne sur tablette */
+    grid-template-columns: repeat(2, 1fr); 
   }
   .ap-pricing-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 plans côte à côte max */
+    grid-template-columns: repeat(2, 1fr); 
     justify-content: center;
   }
-  /* On force le 3e plan tarifaire à prendre toute la largeur si impair */
   .ap-pricing-grid .ap-price-card:last-child {
     grid-column: span 2;
     max-width: 50%;
@@ -1316,27 +1796,30 @@ body.intro-active {
     width: 100%;
   }
   .ap-tab-panel.active {
-    grid-template-columns: repeat(2, 1fr); /* Onglets de services sur 2 colonnes */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
 /* --- PETITES TABLETTES ET GRANDS TÉLÉPHONES (Max 900px) --- */
 @media (max-width: 900px) {
+  /* MODIFICATION ICI : On cache les liens et on active le burger */
   .ap-nav-links { 
-    display: none; /* Masquage propre des liens (prévoir menu burger plus tard) */
+    display: none !important; 
   }
-  .ap-hero { 
-    grid-template-columns: 1fr; /* Le Hero passe sur une seule colonne */
+  .ap-burger-btn {
+    display: flex !important; /* Rend le bouton burger visible */
   }
+  
   .ap-hero-right { 
-    min-height: 340px; 
+    min-height: 300px; 
+    height: 350px;
   }
   .ap-stats { 
-    grid-template-columns: 1fr; /* Stats empilées */
+    grid-template-columns: 1fr; 
     gap: 0;
   }
   .ap-stat::after {
-    display: none; /* Plus de séparateurs verticaux */
+    display: none; 
   }
   .ap-stat {
     border-bottom: 1px solid #E2E8F0;
@@ -1356,7 +1839,19 @@ body.intro-active {
     grid-column: span 2; 
   }
   .ap-contact-grid { 
-    grid-template-columns: 1fr; /* Formulaire au-dessus de la carte */
+    grid-template-columns: 1fr; 
+  }
+  .ap-footer-top {
+    grid-template-columns: 1fr !important; /* Passe sur une seule colonne */
+    gap: 32px;
+  }
+  .ap-footer-bottom {
+    flex-direction: column-reverse; /* Met les liens au-dessus du copyright sur mobile */
+    align-items: flex-start;
+  }
+  .ap-footer-grid {
+    grid-template-columns: repeat(2, 1fr); /* Conserve l'esprit PhoneSpot en 2 colonnes */
+    gap: 40px 20px;
   }
 }
 
@@ -1380,6 +1875,27 @@ body.intro-active {
     padding-bottom: 40px;
   }
   
+  /* FIX CHEVAUCHEMENT MOBILE HERO */
+  .ap-hero-left h1 {
+    font-size: 26px !important; 
+    line-height: 1.3 !important; 
+    margin-bottom: 12px !important;
+  }
+  .ap-hero-left p {
+    font-size: 14px !important;
+    line-height: 1.5 !important; 
+    margin-bottom: 20px !important;
+  }
+
+  /* FORÇAGE DE L'EMPLEMENT DES PACKS EN 1 COLONNE UNIQUE SUR TELEPHONE */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 24px;
+  }
+  
   .ap-hero-avail {
     left: 12px;
     right: 12px;
@@ -1397,7 +1913,7 @@ body.intro-active {
   }
 
   .ap-tabs {
-    flex-direction: column; /* Boutons d'onglets verticaux sur smartphone */
+    flex-direction: column; 
     border-radius: 6px;
   }
   
@@ -1436,20 +1952,149 @@ body.intro-active {
     max-width: 100%;
   }
   
-  .ap-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 30px 16px;
+  .ap-footer{
+    padding:50px 24px 28px;
   }
-  
-  .ap-footer-right {
-    align-items: flex-start;
-    width: 100%;
-    margin-top: 12px;
+
+  .ap-footer-grid{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    gap:42px;
+
+    text-align:center;
   }
-  
-  .ap-footer-links {
-    flex-wrap: wrap;
-    gap: 16px;
+
+  .ap-footer-block{
+
+    width:100%;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+    transform:none !important;
   }
+
+  /* -------- Logo -------- */
+
+  .ap-nav-logo{
+
+    justify-content:center;
+
+    margin-bottom:10px;
+  }
+
+  .ap-footer-badge{
+
+    margin-top:0;
+    margin-bottom:16px;
+  }
+
+  .ap-footer-text{
+
+    max-width:290px;
+
+    margin:0 auto;
+
+    line-height:1.7;
+  }
+
+  /* -------- Navigation -------- */
+
+  .ap-footer-links-list{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px 10px;
+
+    margin-top:8px;
+  }
+
+  .ap-footer-links-list li{
+
+    margin:0;
+  }
+
+  /* -------- RDV -------- */
+
+  .ap-footer-btn-cta{
+
+    margin:8px auto 18px;
+
+    width:100%;
+
+    max-width:300px;
+
+    justify-content:center;
+  }
+
+  .ap-footer-subtext{
+
+    max-width:250px;
+
+    margin:auto;
+
+    line-height:1.6;
+  }
+
+  /* -------- Copyright -------- */
+
+  .ap-footer-bottom-bar{
+
+    margin-top:45px;
+
+    padding-top:22px;
+  }
+
+  .ap-footer-bottom-bar p{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:12px;
+
+    line-height:1.6;
+  }
+
+  .ap-footer-bottom-bar a{
+
+    margin:0 6px;
+  }
+  /* Ajustement de la Mini en showroom mobile */
+  .ap-title-showroom-wrapper {
+    flex-direction: column-reverse; 
+    gap: 24px;
+  }
+  .ap-showroom-text-side { text-align: center; }
+  .ap-showroom-kicker, .ap-showroom-h2, .ap-showroom-desc {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Ajustement de la galerie d'images sur smartphone */
+  .ap-slider-container { padding: 0 15px; }
+  .ap-gal-item { flex: 0 0 85vw; height: 420px; }
+  .ap-slider-arrow { display: none; }
+
+  /* Ajustement des badges marques sur smartphone */
+  .brands-section { padding: 80px 20px; }
+  .brands-list { gap: 12px; }
+  .brands-list span { padding: 12px 18px; font-size: 15px; }
+  .brands-card::before { width: 400px; height: 400px; }
 }
